@@ -1,3 +1,4 @@
 
-def new_game(args):
+def new_game(player_names, deck_path):
   pass
+  
