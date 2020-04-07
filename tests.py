@@ -176,6 +176,51 @@ def test_cards():
   print("OK")
 
 
+def test_participants():
+  """
+    verifies the following:
+    -participant has a name, defaults to "Player"
+    -participant can obtain cards
+    -participant has a string representation
+    -participant has an integer representation
+    -participant loses if their score is above 21
+  """
+  print("Testing implementation of participants...")
+  from roles import Participant
+  
+  p = Participant()
+  if p.name() != "Player":
+    print("Error: participant default name is not \"Player\"")
+    return
+  p = Participant("Dealer")
+  if p.name() != "Dealer":
+    print("Error: participant name cannot be specified")
+    return
+  
+  cards = [Card('H3'), Card('H4'), Card('SQ')]
+  for c in cards:
+    p.take(c)
+  
+  if len(p) != 3:
+    print("Error: participant can not obtain cards")
+    return True
+  s = repr(p)
+  if s != "Dealer: H3, H4, SQ":
+    print("Error: participant can not be represented as string")
+    return True
+  n = int(p)
+  if n != 17:
+    print("Error: participant can not be represented as integer")
+    return True
+  
+  p.take(Card('DQ'))
+  if int(p) > 21 and p.status() != 'loss':
+    print("Error: participant does not lose if score is above 21")
+    return True
+    
+  print("OK")
+
+
 def run_tests():
   """
     runs all tests
@@ -194,13 +239,17 @@ def run_tests():
     remove(path)
     remove(path2)
     return
-  remove(path)
   remove(path2)
   
   if test_cards():
     print("Error testing card functionality")
+    remove(path)
     return
+  remove(path)
   
+  if test_participants():
+    print("Error testing participant roles")
+    return
   
   
   
