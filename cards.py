@@ -5,6 +5,12 @@ def sanitize(csv):
           .replace("\r", "") \
           .replace("\n", "")
 
+class DeckImportError(Exception):
+  pass
+class CardValueError(Exception):
+  pass
+
+
   
 class Card(object):
   suites = ['H', 'D', 'S', 'C']
