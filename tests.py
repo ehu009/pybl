@@ -49,7 +49,7 @@ def test_generation(path):
   print("OK")
   
 
-def test_decks(deck_path):
+def test_decks(deck_path, bogus_path):
   """
   verifies the following:
     -random deck can be made
@@ -64,7 +64,7 @@ def test_decks(deck_path):
   if len(d1) != 52:
     print("Error: new deck has wrong amount of cards")
     return True
-  d1.export("_bogus.csv")
+  d1.export(bogus_path)
   
   c1 = d1.pick()
   if len(d1) != 51:
@@ -90,17 +90,17 @@ def test_decks(deck_path):
       print("Error: order is not preserved when importing a custom deck: "+str(a)+" vs. "+str(b))
       return True
   
-  with open("_bogus.csv",'r') as f:
+  with open(bogus_path,'r') as f:
     cards = sanitize(f.readline()).split(',')
   cards.pop()
   cards.append("X13")
   s = ",".join(cards)
-  with open("_bogus.csv",'w+') as f:
+  with open(bogus_path,'w+') as f:
     f.write(s)
     
   q = True
   try:
-    Deck("_bogus.csv")
+    Deck(bogus_path)
   except DeckImportError:
     q = False
   if q:
@@ -109,12 +109,12 @@ def test_decks(deck_path):
   
   cards.pop()
   s = ",".join(cards)
-  with open("_bogus.csv",'w+') as f:
+  with open(bogus_path,'w+') as f:
     f.write(s)
     
   q = True
   try:
-    Deck("_bogus.csv")
+    Deck(bogus_path)
   except DeckImportError:
     q = False
   if q:
