@@ -56,6 +56,7 @@ def test_decks(deck_path, bogus_path):
     -deck is reduced when taking cards from it
     -custom deck can be loaded from file, preserving desired order
     -importing custom decks with exotic cards raises an error
+    -trying to obtain a card from an empty deck yields none
   """
   print("Testing implementation of decks...")
   from cards import Deck, Card, DeckImportError
@@ -79,6 +80,10 @@ def test_decks(deck_path, bogus_path):
   
   d2 = Deck(deck_path)
   test_cards = d2.pick(52)
+  if d2.pick() != None:
+    print("Error: trying to take a card from an empty deck does not return None")
+    return True
+  
   cards = []
   with open(deck_path, 'r') as f:
     cards = sanitize(f.readline()).split(',')
@@ -284,6 +289,7 @@ def test_dealer():
   
   print("OK")
 
+
 def run_tests():
   """
     runs all tests
@@ -311,8 +317,14 @@ def run_tests():
   remove(path)
   
   if test_participants():
-    print("Error testing participant roles")
+    print("Error testing participant functionality")
     return
   
+  if test_player():
+    print("Error testing player functionality")
+    return
   
+  if test_dealer():
+    print("Error testing dealer functionality")
+    return
   
