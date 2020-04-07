@@ -101,13 +101,25 @@ def test_decks(deck_path):
   q = True
   try:
     Deck("_bogus.csv")
-    
   except DeckImportError:
     q = False
   if q:
     print("Error: a deck containing errors can be imported without raising an exception")
     return True
+  
+  cards.pop()
+  s = ",".join(cards)
+  with open("_bogus.csv",'w+') as f:
+    f.write(s)
     
+  q = True
+  try:
+    Deck("_bogus.csv")
+  except DeckImportError:
+    q = False
+  if q:
+    print("Error: a deck with wrong number of cards can be imported without raising an exception")
+    return True
   from os import remove
   remove("_bogus.csv")
   
