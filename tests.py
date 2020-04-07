@@ -58,6 +58,7 @@ def test_decks(deck_path):
     -random deck can be made
     -deck is reduced when taking cards from it
     -custom deck can be loaded from file, preserving desired order
+    -importing custom decks with exotic cards raises an error
   """
   print("Testing implementation of decks...")
   from cards import Deck
@@ -66,6 +67,7 @@ def test_decks(deck_path):
   if len(d1) != 52:
     print("Error: new deck has wrong amount of cards")
     return True
+  d1.export("_bogus.csv")
   
   c1 = d1.pick()
   if len(d1) != 51:
@@ -91,11 +93,35 @@ def test_decks(deck_path):
   if cards != test_cards:
     print("Error: order is not preserved when importing a custom deck")
     return True
+  
+  with open("_bogus.csv",'w') as f:
+    l = f.readline() \
+        .replace(" ", "") \
+        .replace("\t", "") \
+        .replace("\r", "") \
+        .replace("\n", "")
+    cards = l.split(',')
+    cards.replace("HA", "X13")
+  q = True
+  try:
+    Deck("_bogus")
+    
+  except DeckImportError:
+    q = False
+  if q:
+    print("Error: a deck containing errors can be imported without raising an exception")
+    return True
+    
+  from os import remove
+  remove("_bogus.csv")
+  
   print("OK")
+
   
 def test_cards():
   """
     verifies the following:
+    -cannot create a card that shouldn't exist 
     -card has string representation
     -card has integer representation corresponding to blackjack score
   """
@@ -132,6 +158,14 @@ def test_cards():
     print("Error: aces yield " + str(int(c)) + " points instead of 11")
     return True
   
+  q = True
+  try:
+    c = Card('X13')
+  except CardValueError:
+    q = False
+  if q:
+    print("Error: a card with exotic value can be created without raising an exception: "+ c)
+    return True
   
   print("OK")
 
@@ -140,7 +174,7 @@ def run_tests():
   """
     runs all tests
   """
-  path = "test_deck.csv"
+  path = "_test_deck.csv"
   
   if test_generation(path):
     print("Error testing deck generation")
@@ -154,4 +188,6 @@ def run_tests():
     print("Error testing card functionality")
     return
   
+  from os import remove
+  remove(path)
   
