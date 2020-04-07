@@ -178,7 +178,7 @@ def test_cards():
 
 def test_participants():
   """
-    verifies the following:
+  verifies the following:
     -participant has a name, defaults to "Player"
     -participant can obtain cards
     -participant has a string representation
@@ -214,12 +214,75 @@ def test_participants():
     return True
   
   p.take(Card('DQ'))
-  if int(p) > 21 and p.status() != 'loss':
+  if int(p) > 21 and bool(p):
     print("Error: participant does not lose if score is above 21")
     return True
     
   print("OK")
 
+
+def test_player():
+  """
+  verifies the following:
+  -player can not pick obtain cards if current score is above 17
+  """
+  print("Testing implementation of players...")
+  from roles import Player
+  
+  p = Player()
+  cards = [Card('H3'), Card('H4'), Card('SQ')]
+  for c in cards:
+    p.take(c)
+  
+  if p.take(Card('H7')):
+    print("Error: player can obtain cards if current score is 17 or above")
+    return True
+  
+  print("OK")
+
+
+def test_dealer():
+  """
+  verifies the following:
+  -dealer does not obtain cards if dealer's score is higher than that of other players
+  -dealer will not try to beat the score of a player that has lost
+  """
+  print("Testing implementation of dealers...")
+  from roles import Player, Dealer
+  
+  c1 = [Card('HQ'), Card('H7')]
+  c2 = [Card('SQ'), Card('H6')]
+  c3 = [Card('DQ'), Card('H5')]
+  
+  p1 = Player("alice")
+  p2 = Player("bob")
+  d = Dealer()
+  for c in c1:
+    d.take(c, [p1, p2])
+  for c in c2:
+    p1.take(c)
+  for c in c3:
+    p2.take(c)
+  if d.take(Card('S2'), [p1, p2]):
+    print("Error: dealer takes another card when current score exceeds players' scores")
+    return True
+  
+  c1.append(Card('CQ'))
+  
+  p1 = Player("alice")
+  p2 = Player("bob")
+  d = Dealer()
+  for c in c3:
+    d.take(c, [p1, p2])
+  for c in c2:
+    p1.take(c)
+  for c in c1:
+    p2.take(c)
+  if d.take(Card('S2'), [p1, p2]):
+    print("Error: dealer tries to beat the score of a player who has already lost")
+    return True
+  
+  print("OK")
 
 def run_tests():
   """
