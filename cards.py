@@ -6,7 +6,6 @@ def sanitize(csv):
           .replace("\n", "")
 
   
-  
 class Card(object):
   suites = ['H', 'D', 'S', 'C']
   heights = ['2','3','4','5','6','7','8','9','10','J','Q','K','A']
@@ -18,13 +17,21 @@ class Card(object):
       raise CardValueError
       return None
     self.value = value
-    
+  
   def __repr__(self):
     return self.value
     
   def __int__(self):
-    return int(self.value[1:len(self.value)])
+    s = self.value[1:len(self.value)]
+    try:
+      return int(s)
+    except ValueError:
+      if s == "A":
+        return 11
+      return 10
     
+  def __str__(self):
+    return repr(self)
 
 class Deck(object):
   
