@@ -1,4 +1,6 @@
 
+from cards import sanitize
+
 def test_generation(path):
   """
   verifies the following:
@@ -14,12 +16,7 @@ def test_generation(path):
   cards = []
   try:
     with open(path, 'r') as f:
-      l = f.readline() \
-          .replace(" ", "") \
-          .replace("\t", "") \
-          .replace("\r", "") \
-          .replace("\n", "")
-      cards = l.split(',')
+      cards = f.readline().sanitize().split(',')
   except FileNotFoundError:
     print("Error: could not find generated deck file \"" + path + "\"")
     return True
@@ -84,23 +81,13 @@ def test_decks(deck_path):
   test_cards = d2.pick(52)
   cards = []
   with open(deck_path, 'r') as f:
-    l = f.readline() \
-        .replace(" ", "") \
-        .replace("\t", "") \
-        .replace("\r", "") \
-        .replace("\n", "")
-    cards = l.split(',')
+    cards = f.readline().sanitize().split(',')
   if cards != test_cards:
     print("Error: order is not preserved when importing a custom deck")
     return True
   
   with open("_bogus.csv",'w') as f:
-    l = f.readline() \
-        .replace(" ", "") \
-        .replace("\t", "") \
-        .replace("\r", "") \
-        .replace("\n", "")
-    cards = l.split(',')
+    cards = f.readline().sanitize().split(',')
     cards.replace("HA", "X13")
   q = True
   try:

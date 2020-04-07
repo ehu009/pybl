@@ -1,4 +1,10 @@
 
+def sanitize(csv):
+  return csv.replace(" ", "") \
+          .replace("\t", "") \
+          .replace("\r", "") \
+          .replace("\n", "")
+
   
   
 class Card(object):
