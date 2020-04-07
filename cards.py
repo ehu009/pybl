@@ -12,20 +12,25 @@ class Card(object):
   heights = ['2','3','4','5','6','7','8','9','10','J','Q','K','A']
   
   def __init__(self, value):
-    pass
+    suite = value[0]
+    height= value[1:len(value)]
+    if suite not in Card.suites or height not in Card.heights:
+      raise CardValueError
+      return None
+    self.value = value
     
   def __repr__(self):
-    pass
+    return self.value
     
   def __int__(self):
-    pass
+    return int(self.value[1:len(self.value)])
     
 
 class Deck(object):
   
   def __init__(self, deck_path=None):
     pass
-  
+    
   def __len__(self):
     pass
     
