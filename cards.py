@@ -52,7 +52,10 @@ class Deck(object):
     else:
       with open(deck_path,'r') as f:
         self.cards = []
-        for c in sanitize(f.readline()).split(','):
+        l = sanitize(f.readline()).split(',')
+        if len(l) != 52:
+          raise DeckImportError
+        for c in l:
           try:
             self.cards.append(Card(c.upper()))
           except CardValueError:
