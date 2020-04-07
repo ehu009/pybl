@@ -93,6 +93,48 @@ def test_decks(deck_path):
     return True
   print("OK")
   
+def test_cards():
+  """
+    verifies the following:
+    -card has string representation
+    -card has integer representation corresponding to blackjack score
+  """
+  print("Testing implementation of cards...")
+  from cards import Card
+  
+  #six of hearts yields six points
+  c = Card.new('H6')
+  if c != 'H6':
+    print("Error: card cannot be represented as a string")
+    return True
+  if int(card) != 6:
+    print("Error: card cannot be represented as an integer")
+    return True
+  
+  #jack, queen and kings any suite yield 10 points
+  cases = ['J', 'Q', 'K']
+  for case in cases:
+    c = Card.new('H' + case)
+    if int(c) != 10:
+      err_str = "Error: "
+      if case == 'J':
+        err_str += 'jacks'
+      elif case == 'Q':
+        err_str += 'queens'
+      elif case == 'K':
+        err_str += 'kings'
+      print(err_str + " yield " + str(int(c)) + " points instead of 10")
+      return True
+    
+  #aces of any suite yield 11 points"
+  c = Card.new('HA')
+  if int(c) != 11:
+    print("Error: aces yield " + str(int(c)) + " points instead of 11")
+    return True
+  
+  
+  print("OK")
+
 
 def run_tests():
   """
@@ -106,6 +148,10 @@ def run_tests():
     
   if test_decks(path):
     print("Error testing deck functionality")
+    return
+  
+  if test_cards():
+    print("Error testing card functionality")
     return
   
   
