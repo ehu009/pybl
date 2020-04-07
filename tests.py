@@ -52,8 +52,42 @@ def test_generation(path):
   
   print("OK")
   
-  
 
+def test_decks(deck_path):
+  """
+  verifies the following:
+    -random deck can be made
+    -custom deck can be loaded from file
+  """
+  from cards import Deck
+  
+  d1 = Deck.new()
+  if len(d1) != 52:
+    print("Error: new deck has wrong amount of cards")
+    return True
+  
+  c1 = d1.pick()
+  if len(d1) != 51:
+    print("Error: taking a card from a deck does not reduce it's size")
+    return True
+  
+  c2 = d1.pick()
+  if c1 == c2:
+    print("Error: can take the same card out of a deck twice")
+    return True
+  
+  
+  d2 = Deck.new(deck_path)
+  test_cards = [d2.pick(), d2.pick(), d2.pick()]
+  with open(deck_path, 'r') as f:
+    l = f.readline() \
+        .replace(" ", "") \
+        .replace("\t", "") \
+        .replace("\r", "") \
+        .replace("\n", "")
+    cards = l.split(',')
+  
+  
   
 def run_tests():
   """
@@ -64,4 +98,9 @@ def run_tests():
   if test_generation(path):
     print("Error testing deck generation")
     return
+  
+  if test_decks(path):
+    print("Error testing deck functionality")
+    return
+  
   
