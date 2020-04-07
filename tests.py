@@ -30,7 +30,7 @@ def test_generation(path):
   
   appears = {}
   suites = ['H', 'D', 'S', 'C']
-  heights = ['1','2','3','4','5','6','7','8','9','10','J','Q','K','A']
+  heights = ['2','3','4','5','6','7','8','9','10','J','Q','K','A']
   for card in cards:
     suite = card[0].upper()
     height = card[1:len(card)].upper()
