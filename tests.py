@@ -29,13 +29,12 @@ def test_generation(path):
     return True
   
   appears = {}
-  suites = ['H', 'D', 'S', 'C']
-  heights = ['2','3','4','5','6','7','8','9','10','J','Q','K','A']
+  from cards import Card
   for card in cards:
     suite = card[0].upper()
     height = card[1:len(card)].upper()
     
-    if (suite not in suites) or (height not in heights):
+    if (suite not in Card.suites) or (height not in Card.heights):
       print("Error: generated deck has card with unexpected value: " + card)
       print(suite)
       print(height)
@@ -57,8 +56,10 @@ def test_decks(deck_path):
   """
   verifies the following:
     -random deck can be made
-    -custom deck can be loaded from file
+    -deck is reduced when taking cards from it
+    -custom deck can be loaded from file, preserving desired order
   """
+  print("Testing implementation of decks...")
   from cards import Deck
   
   d1 = Deck.new()
@@ -78,7 +79,8 @@ def test_decks(deck_path):
   
   
   d2 = Deck.new(deck_path)
-  test_cards = [d2.pick(), d2.pick(), d2.pick()]
+  test_cards = d2.pick(52)
+  cards = []
   with open(deck_path, 'r') as f:
     l = f.readline() \
         .replace(" ", "") \
@@ -86,9 +88,12 @@ def test_decks(deck_path):
         .replace("\r", "") \
         .replace("\n", "")
     cards = l.split(',')
+  if cards != test_cards:
+    print("Error: order is not preserved when importing a custom deck")
+    return True
+  print("OK")
   
-  
-  
+
 def run_tests():
   """
     runs all tests
@@ -98,7 +103,7 @@ def run_tests():
   if test_generation(path):
     print("Error testing deck generation")
     return
-  
+    
   if test_decks(path):
     print("Error testing deck functionality")
     return
