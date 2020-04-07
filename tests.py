@@ -58,7 +58,7 @@ def test_decks(deck_path):
     -importing custom decks with exotic cards raises an error
   """
   print("Testing implementation of decks...")
-  from cards import Deck
+  from cards import Deck, Card, DeckImportError
   
   d1 = Deck()
   if len(d1) != 52:
@@ -82,16 +82,25 @@ def test_decks(deck_path):
   cards = []
   with open(deck_path, 'r') as f:
     cards = sanitize(f.readline()).split(',')
-  if cards != test_cards:
-    print("Error: order is not preserved when importing a custom deck")
-    return True
   
-  with open("_bogus.csv",'w') as f:
+  cards = list(map(lambda x: Card(x), cards))
+  
+  for a, b in zip(cards, test_cards):
+    if str(a) != str(b):
+      print("Error: order is not preserved when importing a custom deck: "+str(a)+" vs. "+str(b))
+      return True
+  
+  with open("_bogus.csv",'r') as f:
     cards = sanitize(f.readline()).split(',')
-    cards.replace("HA", "X13")
+  cards.pop()
+  cards.append("X13")
+  s = ",".join(cards)
+  with open("_bogus.csv",'w+') as f:
+    f.write(s)
+    
   q = True
   try:
-    Deck("_bogus")
+    Deck("_bogus.csv")
     
   except DeckImportError:
     q = False
@@ -113,14 +122,14 @@ def test_cards():
     -card has integer representation corresponding to blackjack score
   """
   print("Testing implementation of cards...")
-  from cards import Card
+  from cards import Card, CardValueError
   
   #six of hearts yields six points
   c = Card('H6')
-  if c != 'H6':
+  if str(c) != 'H6':
     print("Error: card cannot be represented as a string")
     return True
-  if int(card) != 6:
+  if int(c) != 6:
     print("Error: card cannot be represented as an integer")
     return True
   
