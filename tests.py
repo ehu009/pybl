@@ -62,7 +62,7 @@ def test_decks(deck_path):
   print("Testing implementation of decks...")
   from cards import Deck
   
-  d1 = Deck.new()
+  d1 = Deck()
   if len(d1) != 52:
     print("Error: new deck has wrong amount of cards")
     return True
@@ -78,7 +78,7 @@ def test_decks(deck_path):
     return True
   
   
-  d2 = Deck.new(deck_path)
+  d2 = Deck(deck_path)
   test_cards = d2.pick(52)
   cards = []
   with open(deck_path, 'r') as f:
@@ -103,7 +103,7 @@ def test_cards():
   from cards import Card
   
   #six of hearts yields six points
-  c = Card.new('H6')
+  c = Card('H6')
   if c != 'H6':
     print("Error: card cannot be represented as a string")
     return True
@@ -114,7 +114,7 @@ def test_cards():
   #jack, queen and kings any suite yield 10 points
   cases = ['J', 'Q', 'K']
   for case in cases:
-    c = Card.new('H' + case)
+    c = Card('H' + case)
     if int(c) != 10:
       err_str = "Error: "
       if case == 'J':
@@ -127,7 +127,7 @@ def test_cards():
       return True
     
   #aces of any suite yield 11 points"
-  c = Card.new('HA')
+  c = Card('HA')
   if int(c) != 11:
     print("Error: aces yield " + str(int(c)) + " points instead of 11")
     return True
