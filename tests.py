@@ -120,8 +120,6 @@ def test_decks(deck_path):
   if q:
     print("Error: a deck with wrong number of cards can be imported without raising an exception")
     return True
-  from os import remove
-  remove("_bogus.csv")
   
   print("OK")
 
@@ -183,19 +181,26 @@ def run_tests():
     runs all tests
   """
   path = "_test_deck.csv"
+  from os import remove
   
   if test_generation(path):
     print("Error testing deck generation")
+    remove(path)
     return
-    
-  if test_decks(path):
+  
+  path2 = "_bogus.csv"
+  if test_decks(path, path2):
     print("Error testing deck functionality")
+    remove(path)
+    remove(path2)
     return
+  remove(path)
+  remove(path2)
   
   if test_cards():
     print("Error testing card functionality")
     return
   
-  from os import remove
-  remove(path)
+  
+  
   
