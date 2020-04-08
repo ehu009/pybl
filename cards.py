@@ -1,16 +1,4 @@
 
-def count_occurences(card_list):
-  """
-  input: card_list is a list of strings (not cards)
-  """
-  n = {}
-  for card in card_list:
-    try:
-      n[card] += 1
-    except KeyError:
-      n[card] = 1
-  return n
-
 from helpers import sanitize 
 
 class DeckImportError(Exception):

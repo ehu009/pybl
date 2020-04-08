@@ -28,7 +28,7 @@ def test_generation(path):
     return True
   
   from cards import Card
-  from cards import count_occurences
+  from helpers import count_occurences
   for card in cards:
     suite = card[0].upper()
     height = card[1:len(card)].upper()
@@ -381,6 +381,7 @@ def run_tests():
   """
     runs all tests
   """
+  
   path = "_test_deck.csv"
   from os import remove
   

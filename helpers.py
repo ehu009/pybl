@@ -23,3 +23,15 @@ def sanitize(csv):
           .replace("\t", "") \
           .replace("\r", "") \
           .replace("\n", "")
+
+def count_occurences(card_list):
+  """
+  input: card_list is a list of strings (not a list of cards)
+  """
+  n = {}
+  for card in card_list:
+    try:
+      n[card] += 1
+    except KeyError:
+      n[card] = 1
+  return n
