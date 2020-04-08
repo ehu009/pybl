@@ -27,9 +27,10 @@ class Participant(object):
       self.playing = False
     return True
   
-
-
-
+  def defeat(self):
+    self.playing = False
+  
+  
 class Dealer(Participant):
   
   def __init__(self):
