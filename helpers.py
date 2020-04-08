@@ -24,7 +24,7 @@ def sanitize(csv):
           .replace("\r", "") \
           .replace("\n", "")
 
-def count_occurences(card_list):
+def count_occurrences(card_list):
   """
   input: card_list is a list of strings (not a list of cards)
   """

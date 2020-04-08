@@ -28,7 +28,7 @@ def test_generation(path):
     return True
   
   from cards import Card
-  from helpers import count_occurences
+  from helpers import count_occurrences
   for card in cards:
     suite = card[0].upper()
     height = card[1:len(card)].upper()
@@ -37,7 +37,7 @@ def test_generation(path):
       print("Error: generated deck has card with unexpected value: " + card)
       return True
   
-  appears = count_occurences(cards)  
+  appears = count_occurrences(cards)  
   for n in appears.values():
     if n > 1:
       print("Error: generated deck has duplicate cards")
