@@ -65,6 +65,8 @@ class Deck(object):
     return len(self.cards)
   
   def pick(self, n=1):
+    if len(self) == 0:
+      return None
     if n == 1:
       return self.cards.pop(0)
     l = []
