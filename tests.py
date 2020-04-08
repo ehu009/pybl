@@ -337,7 +337,7 @@ def test_game_init():
   
   people = g.participants()
   for p in people:
-    if type(p) is Dealer and p.name() != "Dealer":
+    if type(p) is Dealer and p.name != "Dealer":
       print("Error: dealer is not automatically named \"Dealer\"")
       return True
     if len(p) != 2:
