@@ -22,6 +22,15 @@ class Game(object):
   def participants(self):
     return self.users
   
+  def new_card(self, participant):
+    card = self.deck.pick()
+    if card is None:
+      raise EmptyDeckError
+    if type(participant) is Player:
+      return participant.take(card)
+    return participant.take(card, self.participants.remove(participant))
+    
+  
   def conclude(self):
     pass
   
