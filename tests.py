@@ -1,6 +1,7 @@
 
 from cards import sanitize
 
+
 def test_generation(path):
   """
   verifies the following:
@@ -34,15 +35,15 @@ def test_generation(path):
     if (suite not in Card.suites) or (height not in Card.heights):
       print("Error: generated deck has card with unexpected value: " + card)
       return True
-  appears = count_occurences(cards)
-    
+  
+  appears = count_occurences(cards)  
   for n in appears.values():
     if n > 1:
       print("Error: generated deck has duplicate cards")
       return True
   
   print("OK")
-  
+
 
 def test_decks(deck_path, bogus_path):
   """
@@ -302,6 +303,7 @@ def test_dealer():
 def test_game_init():
   """
   verifies the following:
+  -default number of participants is 2
   -dealer is always named 'Dealer'
   -two cards are dealt to each participant at game start
   """
@@ -310,10 +312,16 @@ def test_game_init():
   from blackjack import Game
   from roles import Player, Dealer
   
+  g = Game([Player("Player")])
+  people = g.participants()
+  if len(people) != 2:
+    print("Error: default number of participants is not 2 (dealer + player)")
+    return True
+  
   ann = Player("Ann")
   peter = Player("Peter")
   simon = Player("Simon")
-  g = Game([ann, peter, simon], None)
+  g = Game([ann, peter, simon])
   
   people = g.participants()
   for p in people:
@@ -359,6 +367,8 @@ def test_game_over(path):
   if q:
     print("Error: exception is not raised when trying to take a card from an empty deck")
     return True
+  
+  
   
   
   # implement me, stupid
