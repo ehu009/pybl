@@ -356,19 +356,17 @@ def test_game_over(path):
   ann = Player("Ann")
   peter = Player("Peter")
   simon = Player("Simon")
-  g = Game([ann, peter, simon], path)
   
-  game.deck.pick(44)
+  g = Game([ann, peter, simon], path)
+  g.deck.pick(44)
   q = True
   try:
-    game.deck.pick()
+    g.deck.pick()
   except EmptyDeckError:
     q = False
   if q:
     print("Error: exception is not raised when trying to take a card from an empty deck")
     return True
-  
-  
   
   
   # implement me, stupid
