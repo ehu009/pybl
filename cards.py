@@ -51,6 +51,12 @@ class Deck(object):
         l = sanitize(f.readline()).split(',')
         if len(l) != 52:
           raise DeckImportError
+        from helpers import count_occurences
+        occurences = count_occurences(l)
+        for n in occurences.values():
+          if n != 1:
+            raise DeckImportError
+        
         for c in l:
           try:
             self.cards.append(Card(c.upper()))
