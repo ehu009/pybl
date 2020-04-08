@@ -229,8 +229,9 @@ def test_player():
   """
   print("Testing implementation of players...")
   from roles import Player
+  from cards import Card
   
-  p = Player()
+  p = Player('Edward')
   cards = [Card('H3'), Card('H4'), Card('SQ')]
   for c in cards:
     p.take(c)
@@ -250,6 +251,7 @@ def test_dealer():
   """
   print("Testing implementation of dealers...")
   from roles import Player, Dealer
+  from cards import Card
   
   c1 = [Card('HQ'), Card('H7')]
   c2 = [Card('SQ'), Card('H6')]
@@ -258,28 +260,24 @@ def test_dealer():
   p1 = Player("alice")
   p2 = Player("bob")
   d = Dealer()
-  for c in c1:
-    d.take(c, [p1, p2])
   for c in c2:
     p1.take(c)
   for c in c3:
     p2.take(c)
+  for c in c1:
+    d.take(c, [p1, p2])
   if d.take(Card('S2'), [p1, p2]):
     print("Error: dealer takes another card when current score exceeds players' scores")
     return True
   
-  c1.append(Card('CQ'))
-  
   p1 = Player("alice")
-  p2 = Player("bob")
   d = Dealer()
-  for c in c3:
-    d.take(c, [p1, p2])
   for c in c2:
     p1.take(c)
-  for c in c1:
-    p2.take(c)
-  if d.take(Card('S2'), [p1, p2]):
+  for c in c3:
+    d.take(c, [p1])
+  p1.take(Card('SQ'))
+  if d.take(Card('S2'), [p1]):
     print("Error: dealer tries to beat the score of a player who has already lost")
     return True
   
