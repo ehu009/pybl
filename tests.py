@@ -110,7 +110,7 @@ def test_decks(deck_path, bogus_path):
   except DeckImportError:
     q = False
   if q:
-    print("Error: a deck containing errors can be imported without raising an exception")
+    print("Error: a deck containing exotic cards can be imported without raising an exception")
     return True
   
   cards.pop()
@@ -332,17 +332,39 @@ def test_game_init():
   print("OK")
 
 
-def test_game_over():
+def test_game_over(path):
   """
   verifies the following:
-  -
+  -raises exception when deck becomes empty
   -
   """
-  #-raises exception when deck becomes empty
   #-when the game is over, info about dealer and players is printed to screen
   #-when the game is over, there could be a draw
   #-when the game is over, the winners' names are printed
   print("Testing game over turnout...")
+  
+  from blackjack import Game, EmptyDeckError
+  from roles import Player, Dealer
+  from cards import Deck
+  from generate import generate_deck
+  
+  generate_deck(path)
+  
+  ann = Player("Ann")
+  peter = Player("Peter")
+  simon = Player("Simon")
+  g = Game([ann, peter, simon], path)
+  
+  game.deck.pick(44)
+  q = True
+  try:
+    game.deck.pick()
+  except EmptyDeckError:
+    q = False
+  if q:
+    print("Error: exception is not raised when trying to take a card from an empty deck")
+    return True
+  
   
   # implement me, stupid
   
@@ -388,10 +410,11 @@ def run_tests():
     print("Error testing game initialization")
     return
   
-  if test_game_over():
+  if test_game_over(path):
     print("Error testing game turnouts")
+    remove(path)
     return
-  
+  remove(path)
   
   print("ALL OK")
   
