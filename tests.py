@@ -33,8 +33,6 @@ def test_generation(path):
     
     if (suite not in Card.suites) or (height not in Card.heights):
       print("Error: generated deck has card with unexpected value: " + card)
-      print(suite)
-      print(height)
       return True
     try:
       appears[card] += 1
