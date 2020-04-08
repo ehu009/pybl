@@ -139,9 +139,8 @@ def test_decks(deck_path, bogus_path):
     return True
   
   print("OK")
-  
 
-  
+
 def test_cards():
   """
     verifies the following:
@@ -201,6 +200,7 @@ def test_participants():
     -participant has a string representation
     -participant has an integer representation
     -participant loses if their score is above 21
+    -participant can be forced to lose
   """
   print("Testing implementation of participants...")
   from roles import Participant
@@ -229,7 +229,14 @@ def test_participants():
   if int(p) > 21 and bool(p):
     print("Error: participant does not lose if score is above 21")
     return True
-    
+  
+  p = Participant("Player")
+  p.defeat()
+  if bool(p):
+    print("Error: participant can not be forced to lose")
+    return True
+  
+  
   print("OK")
 
 
