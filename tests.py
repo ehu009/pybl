@@ -191,9 +191,10 @@ def test_participants():
   """
   print("Testing implementation of participants...")
   from roles import Participant
+  from cards import Card
   
   p = Participant("Dealer")
-  if p.name() != "Dealer":
+  if p.name != "Dealer":
     print("Error: participant name cannot be specified")
     return
   
