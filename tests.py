@@ -320,7 +320,7 @@ def test_game_init():
   -two cards are dealt to each participant at game start
   """
   
-  print("Testing implementation of card game...")
+  print("Testing implementation of card game initialization...")
   from blackjack import Game
   from roles import Player, Dealer
   
@@ -356,7 +356,7 @@ def test_game_over(path):
   #-when the game is over, info about dealer and players is printed to screen
   #-when the game is over, there could be a draw
   #-when the game is over, the winners' names are printed
-  print("Testing game over turnout...")
+  print("Testing game over turnouts...")
   
   from blackjack import Game, EmptyDeckError
   from roles import Player, Dealer
