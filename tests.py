@@ -184,7 +184,6 @@ def test_cards():
 def test_participants():
   """
   verifies the following:
-    -participant has a name, defaults to "Player"
     -participant can obtain cards
     -participant has a string representation
     -participant has an integer representation
@@ -193,10 +192,6 @@ def test_participants():
   print("Testing implementation of participants...")
   from roles import Participant
   
-  p = Participant()
-  if p.name() != "Player":
-    print("Error: participant default name is not \"Player\"")
-    return
   p = Participant("Dealer")
   if p.name() != "Dealer":
     print("Error: participant name cannot be specified")
@@ -289,6 +284,38 @@ def test_dealer():
   
   print("OK")
 
+
+def test_game():
+  """
+  verifies the following:
+  -dealer is always named 'Dealer'
+  -two cards are dealt to each participant at game start
+  """
+  #-keeps track of who has lost while playing
+  #-when the game is over, info about dealer and players is printed to screen
+  #-when the game is over, there could be a draw
+  #-when the game is over, the winners' names are printed
+  
+  print("Testing implementation of card game...")
+  from blackjack import Game
+  from roles import Player
+  
+  ann = Player("Ann")
+  peter = Player("Peter")
+  simon = Player("Simon")
+  g = Game(["Ann", "Peter", "Simon"], None)
+  
+  people = g.participants()
+  for p in people:
+    if type(p) is Dealer and p.name() != "Dealer":
+      print("Error: dealer is not automatically named \"Dealer\"")
+      return True
+    if len(p) != 2:
+      print("Error: participants do not start with two cards each")
+      return True
+  
+  print("OK")
+  
 
 def run_tests():
   """
