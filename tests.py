@@ -209,9 +209,7 @@ def test_participants():
     print("Error: participant name cannot be specified")
     return
   
-  cards = [Card('H3'), Card('H4'), Card('SQ')]
-  for c in cards:
-    p.take(c)
+  cards = list(map(lambda x: p.take(Card(x)),['H3', 'H4', 'SQ']))
   
   if len(p) != 3:
     print("Error: participant can not obtain cards")
@@ -247,7 +245,7 @@ def test_dealer():
   
   p1 = Player('Edward')
   d = Dealer()
-  cards = [Card('H3'), Card('H4'), Card('SQ')]
+  cards = list(map(lambda x: Card(x), ['H3', 'H4', 'SQ']))
   for c in cards:
     p1.take(c)
     d.take(c, [p1])
