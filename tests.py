@@ -1,4 +1,5 @@
 
+from helpers import map_to_list
 from cards import sanitize
 
 
@@ -85,7 +86,7 @@ def test_decks(deck_path, bogus_path):
   with open(deck_path, 'r') as f:
     cards = sanitize(f.readline()).split(',')
   
-  cards = list(map(lambda x: Card(x), cards))
+  cards = map_to_list(lambda x: Card(x), cards)
   
   for a, b in zip(cards, test_cards):
     if str(a) != str(b):
@@ -138,6 +139,7 @@ def test_decks(deck_path, bogus_path):
     return True
   
   print("OK")
+  
 
   
 def test_cards():
@@ -209,7 +211,7 @@ def test_participants():
     print("Error: participant name cannot be specified")
     return
   
-  cards = list(map(lambda x: p.take(Card(x)),['H3', 'H4', 'SQ']))
+  cards = map_to_list(lambda x: p.take(Card(x)),['H3', 'H4', 'SQ'])
   
   if len(p) != 3:
     print("Error: participant can not obtain cards")
@@ -245,7 +247,7 @@ def test_dealer():
   
   p1 = Player('Edward')
   d = Dealer()
-  cards = list(map(lambda x: Card(x), ['H3', 'H4', 'SQ']))
+  cards = map_to_list(lambda x: Card(x), ['H3', 'H4', 'SQ'])
   for c in cards:
     p1.take(c)
     d.take(c, [p1])

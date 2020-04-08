@@ -1,4 +1,6 @@
 
+from helpers import map_to_list
+
 class Participant(object):
   def __init__(self, name):
     self.name = name
@@ -10,7 +12,7 @@ class Participant(object):
     return self.playing
   
   def __repr__(self):
-    return self.name + ": " + ", ".join(list(map(lambda x: repr(x), self.cards)))
+    return self.name + ": " + ", ".join(map_to_list(lambda x: repr(x), self.cards))
   
   def __int__(self):
     return self.score
@@ -36,8 +38,8 @@ class Dealer(Participant):
   def take(self, card, players):
     if self.score >= 17:
       return False
-    if True in list(map(lambda x: bool(x), players)):
-      for q, n in list(map(lambda x: (bool(x), int(x)), players)):
+    if True in map_to_list(lambda x: bool(x), players):
+      for q, n in map_to_list(lambda x: (bool(x), int(x)), players):
         if q and n >= int(self):
           return super().take(card)
     return False
