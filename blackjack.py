@@ -10,10 +10,17 @@ class EmptyDeckError(Exception):
 
 class Game(object):
   def __init__(self, player_list, deck_path=None):
-    pass
+    self.users = player_list
+    self.deck = Deck()
+    self.current = 0
+    self.users.append(Dealer())
+    #grant each participant two cards
+    for i in range(0, 2):
+      for u in self.users:
+        u.give(self.deck.pick())
   
   def participants(self):
-    pass
+    return self.users
   
   def conclude(self):
     pass
