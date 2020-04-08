@@ -248,6 +248,7 @@ def test_dealer():
   verifies the following:
   -dealer does not obtain cards if dealer's score is higher than that of other players
   -dealer will not try to beat the score of a player that has lost
+  -dealer will try to beat remaining players
   """
   print("Testing implementation of dealers...")
   from roles import Player, Dealer
@@ -279,6 +280,20 @@ def test_dealer():
   p1.take(Card('SQ'))
   if d.take(Card('S2'), [p1]):
     print("Error: dealer tries to beat the score of a player who has already lost")
+    return True
+  
+  p1 = Player("alice")
+  p2 = Player("bob")
+  d = Dealer()
+  for c in c1:
+    p1.take(c)
+  for c in c2:
+    p2.take(c)
+  for c in c3:
+    d.take(c, [p1, p2])
+  p2.take(Card('SQ'))
+  if not d.take(Card('S2'), [p1, p2]):
+    print("Error: dealer does not try to beat remaining players")
     return True
   
   print("OK")
