@@ -1,6 +1,6 @@
 
 from helpers import map_to_list
-from cards import sanitize
+from helpers import sanitize
 
 
 def test_generation(path):
