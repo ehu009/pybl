@@ -12,7 +12,7 @@ def test_generation(path):
     -card uniqueness
   """
   print("Testing deck generation...")
-  from generate import generate_deck
+  from helpers import generate_deck
   generate_deck(path)
   
   cards = []
@@ -349,7 +349,7 @@ def test_game_over(path):
   from blackjack import Game, EmptyDeckError
   from roles import Player, Dealer
   from cards import Deck
-  from generate import generate_deck
+  from helpers import generate_deck
   
   generate_deck(path)
   

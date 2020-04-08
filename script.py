@@ -35,10 +35,10 @@ if __name__ == '__main__':
       run_tests()
       exit()      
     elif '-generate' in q:
-      from generate import generate_deck
       p = find_arg('-generate', q)
       if p is None:
         p = 'deck.csv'
+      from helpers import generate_deck
       generate_deck(p)
       exit()
   from blackjack import new_game
