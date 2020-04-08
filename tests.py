@@ -55,8 +55,9 @@ def test_decks(deck_path, bogus_path):
     -random deck can be made
     -deck is reduced when taking cards from it
     -custom deck can be loaded from file, preserving desired order
-    -importing custom decks with exotic cards raises an error
-    -trying to obtain a card from an empty deck yields none
+    -importing custom decks with exotic cards raises an exception
+    -importing custom decks with duplicate cards raises an exception
+    -trying to obtain a card from an empty deck will yield none
   """
   print("Testing implementation of decks...")
   from cards import Deck, Card, DeckImportError
@@ -124,6 +125,20 @@ def test_decks(deck_path, bogus_path):
     q = False
   if q:
     print("Error: a deck with wrong number of cards can be imported without raising an exception")
+    return True
+  
+  cards.append(cards[0])
+  s = ",".join(cards)
+  with open(bogus_path,'w+') as f:
+    f.write(s)
+    
+  q = True
+  try:
+    Deck(bogus_path)
+  except DeckImportError:
+    q = False
+  if q:
+    print("Error: a deck containing duplicate cards can be imported without raising an exception")
     return True
   
   print("OK")
@@ -304,8 +319,8 @@ def test_game():
   verifies the following:
   -dealer is always named 'Dealer'
   -two cards are dealt to each participant at game start
+  -raises exception if deck is empty
   """
-  #-keeps track of who has lost while playing
   #-when the game is over, info about dealer and players is printed to screen
   #-when the game is over, there could be a draw
   #-when the game is over, the winners' names are printed
@@ -313,6 +328,7 @@ def test_game():
   print("Testing implementation of card game...")
   from blackjack import Game
   from roles import Player
+  
   
   ann = Player("Ann")
   peter = Player("Peter")
