@@ -237,30 +237,10 @@ def test_participants():
   print("OK")
 
 
-def test_player():
-  """
-  verifies the following:
-  -player can not pick obtain cards if current score is above 17
-  """
-  print("Testing implementation of players...")
-  from roles import Player
-  from cards import Card
-  
-  p = Player('Edward')
-  cards = [Card('H3'), Card('H4'), Card('SQ')]
-  for c in cards:
-    p.take(c)
-  
-  if p.take(Card('H7')):
-    print("Error: player can obtain cards if current score is 17 or above")
-    return True
-  
-  print("OK")
-
-
 def test_dealer():
   """
   verifies the following:
+  -dealer can not obtain cards if current score is above 17
   -dealer does not obtain cards if dealer's score is higher than that of other players
   -dealer will not try to beat the score of a player that has lost
   -dealer will try to beat remaining players
@@ -268,6 +248,16 @@ def test_dealer():
   print("Testing implementation of dealers...")
   from roles import Player, Dealer
   from cards import Card
+  
+  p1 = Player('Edward')
+  d = Dealer()
+  cards = [Card('H3'), Card('H4'), Card('SQ')]
+  for c in cards:
+    p1.take(c)
+    d.take(c, [p1])
+  if d.take(Card('H7'), [p1]):
+    print("Error: dealer can obtain cards if current score is 17 or above")
+    return True
   
   c1 = [Card('HQ'), Card('H7')]
   c2 = [Card('SQ'), Card('H6')]
@@ -314,26 +304,21 @@ def test_dealer():
   print("OK")
 
 
-def test_game():
+def test_game_init():
   """
   verifies the following:
   -dealer is always named 'Dealer'
   -two cards are dealt to each participant at game start
-  -raises exception if deck is empty
   """
-  #-when the game is over, info about dealer and players is printed to screen
-  #-when the game is over, there could be a draw
-  #-when the game is over, the winners' names are printed
   
   print("Testing implementation of card game...")
   from blackjack import Game
-  from roles import Player
-  
+  from roles import Player, Dealer
   
   ann = Player("Ann")
   peter = Player("Peter")
   simon = Player("Simon")
-  g = Game(["Ann", "Peter", "Simon"], None)
+  g = Game([ann, peter, simon], None)
   
   people = g.participants()
   for p in people:
@@ -345,7 +330,25 @@ def test_game():
       return True
   
   print("OK")
+
+
+def test_game_over():
+  """
+  verifies the following:
+  -
+  -
+  """
+  #-raises exception when deck becomes empty
+  #-when the game is over, info about dealer and players is printed to screen
+  #-when the game is over, there could be a draw
+  #-when the game is over, the winners' names are printed
+  print("Testing game over turnout...")
   
+  # implement me, stupid
+  
+  
+  print("OK")
+
 
 def run_tests():
   """
@@ -377,11 +380,18 @@ def run_tests():
     print("Error testing participant functionality")
     return
   
-  if test_player():
-    print("Error testing player functionality")
-    return
-  
   if test_dealer():
     print("Error testing dealer functionality")
     return
+  
+  if test_game_init():
+    print("Error testing game initialization")
+    return
+  
+  if test_game_over():
+    print("Error testing game turnouts")
+    return
+  
+  
+  print("ALL OK")
   
