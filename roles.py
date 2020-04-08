@@ -20,12 +20,16 @@ class Participant(object):
   def __len__(self):
     return len(self.cards)
   
-  def take(self, card):
+  def give(self, card):
     self.cards.append(card)
     self.score += int(card)
     if self.score > 21:
       self.playing = False
     return True
+    
+  def take(self, card):
+    return self.give(card)
+    
   
   def defeat(self):
     self.playing = False
