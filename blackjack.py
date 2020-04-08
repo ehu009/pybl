@@ -11,14 +11,14 @@ class EmptyDeckError(Exception):
 class Game(object):
   def __init__(self, player_list, deck_path=None):
     pass
-
-  def participants():
+  
+  def participants(self):
     pass
   
-  def conclude():
+  def conclude(self):
     pass
   
-  def end():
+  def end(self):
     pass
 
 
