@@ -1,9 +1,25 @@
 
 def sanitize(csv):
+  """
+  input: csv is a string
+  """
   return csv.replace(" ", "") \
           .replace("\t", "") \
           .replace("\r", "") \
           .replace("\n", "")
+
+def count_occurences(card_list):
+  """
+  input: card_list is a list of strings (not cards)
+  """
+  n = {}
+  for card in card_list:
+    try:
+      n[card] += 1
+    except KeyError:
+      n[card] = 1
+  return n
+  
 
 class DeckImportError(Exception):
   pass

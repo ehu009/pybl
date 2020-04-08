@@ -25,8 +25,8 @@ def test_generation(path):
     print("Error: generated deck has wrong number of cards: " + str(len(cards)))
     return True
   
-  appears = {}
   from cards import Card
+  from cards import count_occurences
   for card in cards:
     suite = card[0].upper()
     height = card[1:len(card)].upper()
@@ -34,10 +34,7 @@ def test_generation(path):
     if (suite not in Card.suites) or (height not in Card.heights):
       print("Error: generated deck has card with unexpected value: " + card)
       return True
-    try:
-      appears[card] += 1
-    except KeyError:
-      appears[card] = 1
+  appears = count_occurences(cards)
     
   for n in appears.values():
     if n > 1:
