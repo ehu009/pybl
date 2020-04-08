@@ -201,6 +201,7 @@ def test_participants():
     -participant has an integer representation
     -participant loses if their score is above 21
     -participant can be forced to lose
+    -participants can be forced to obtain a card
   """
   print("Testing implementation of participants...")
   from roles import Participant
@@ -236,6 +237,10 @@ def test_participants():
     print("Error: participant can not be forced to lose")
     return True
   
+  p.give(Card('H6'))
+  if len(p) != 1:
+    print("Error: participant can not be forcefully given a card")
+    return True
   
   print("OK")
 
