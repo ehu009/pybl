@@ -31,22 +31,17 @@ class Participant(object):
 class Dealer(Participant):
   
   def __init__(self):
-    super(Dealer, self).__init__("Dealer")
+    super().__init__("Dealer")
   
   def take(self, card, players):
+    if self.score >= 17:
+      return False
     if True in list(map(lambda x: bool(x), players)):
       for q, n in list(map(lambda x: (bool(x), int(x)), players)):
         if q and n >= int(self):
           return super().take(card)
     return False
-      
-    
-  #
 
 
 class Player(Participant):
-  
-  def take(self, card):
-    if self.score >= 17:
-      return False
-    return super().take(card)
+  pass
