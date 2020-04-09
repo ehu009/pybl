@@ -32,7 +32,7 @@ class Game(object):
     
   
   def conclude(self):
-    pass
+    return map_to_list(lambda x: str(x)+" <- "+str(int(x)), self.users)
   
   def end(self):
     pass
