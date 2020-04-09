@@ -380,6 +380,27 @@ def test_game_over(path):
     print("Error: exception is not raised when trying to take a card from an empty deck")
     return True
   
+  from os import remove
+  remove(path)
+  
+  
+  #could've done this with a subprocess reading from stdout, but i figured it would be faster to implement in this fashion
+  generate_deck(path)
+  ann = Player("Ann")
+  peter = Player("Peter")
+  simon = Player("Simon")
+  g = Game([ann, peter, simon], path)
+  ann.take(g.deck.pick())
+  peter.take(g.deck.pick())
+  peter.take(g.deck.pick())
+  gotten = g.conclude()
+  wanted = []
+  for p in g.participants():
+    wanted.append(str(p) + " <- " + str(int(p)))
+  for i, j in zip(wanted, gotten):
+    if i != j:
+      print("Error: players hands are not printed when game is concluded")
+      return True
   
   
   # implement me, stupid
