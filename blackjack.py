@@ -98,9 +98,10 @@ class Game(object):
         else:
           print("Dealer picked %i cards" % (len(dealer)-2))
         print()
-    
+    self.game_over(dealer)
+  
+  def game_over(self, dealer):
     win = self.winners(dealer)
-    
     if len(win) == 0:
       print("All have busted - house wins")
       print("Dealer's hand: %s" % ', '.join(map_to_list(lambda x: str(x), dealer.cards)))
