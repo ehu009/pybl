@@ -23,13 +23,12 @@ class Participant(object):
   def give(self, card):
     self.cards.append(card)
     self.score += int(card)
-    if self.score > 21:
-      self.playing = False
-    return self.playing
+    if int(self) > 21:
+      self.defeat()
+    return bool(self)
     
   def take(self, card):
     return self.give(card)
-    
   
   def defeat(self):
     self.playing = False
