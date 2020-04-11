@@ -1,6 +1,6 @@
 
-from helpers import map_to_list
-from helpers import sanitize
+from pkg.helpers import map_to_list
+from pkg.helpers import sanitize
 
 
 def test_generation(path):
@@ -12,7 +12,7 @@ def test_generation(path):
     -card uniqueness
   """
   print("Testing deck generation...")
-  from helpers import generate_deck
+  from pkg.helpers import generate_deck
   generate_deck(path)
   
   cards = []
@@ -27,8 +27,8 @@ def test_generation(path):
     print("Error: generated deck has wrong number of cards: " + str(len(cards)))
     return True
   
-  from cards import Card
-  from helpers import count_occurrences
+  from pkg.cards import Card
+  from pkg.helpers import count_occurrences
   for card in cards:
     suite = card[0].upper()
     height = card[1:len(card)].upper()
@@ -57,7 +57,7 @@ def test_decks(deck_path, bogus_path):
     -trying to obtain a card from an empty deck will yield none
   """
   print("Testing implementation of decks...")
-  from cards import Deck, Card, DeckImportError
+  from pkg.cards import Deck, Card, DeckImportError
   
   d1 = Deck()
   if len(d1) != 52:
@@ -149,7 +149,7 @@ def test_cards():
     -card has integer representation corresponding to blackjack score
   """
   print("Testing implementation of cards...")
-  from cards import Card, CardValueError
+  from pkg.cards import Card, CardValueError
   
   #six of hearts yields six points
   c = Card('H6')
@@ -204,8 +204,8 @@ def test_participants():
     -participants can be forced to obtain a card
   """
   print("Testing implementation of participants...")
-  from roles import Participant
-  from cards import Card
+  from pkg.roles import Participant
+  from pkg.cards import Card
   
   p = Participant("Dealer")
   if p.name != "Dealer":
@@ -254,8 +254,8 @@ def test_dealer():
   -dealer will try to beat remaining players
   """
   print("Testing implementation of dealers...")
-  from roles import Player, Dealer
-  from cards import Card
+  from pkg.roles import Player, Dealer
+  from pkg.cards import Card
   
   p1 = Player('Edward')
   d = Dealer()
@@ -321,19 +321,16 @@ def test_game_init():
   """
   
   print("Testing implementation of card game initialization...")
-  from blackjack import Game
-  from roles import Player, Dealer
+  from pkg.blackjack import Game
+  from pkg.roles import Player, Dealer
   
-  g = Game([Player("Player")])
+  g = Game(["Player"])
   people = g.participants()
   if len(people) != 2:
     print("Error: default number of participants is not 2 (dealer + player)")
     return True
   
-  ann = Player("Ann")
-  peter = Player("Peter")
-  simon = Player("Simon")
-  g = Game([ann, peter, simon])
+  g = Game(["ann", "peter", "simon"])
   
   people = g.participants()
   for p in people:

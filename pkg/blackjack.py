@@ -1,7 +1,7 @@
 
-from helpers import *
-from cards import *
-from roles import *
+from pkg.helpers import *
+from pkg.cards import *
+from pkg.roles import *
 
 
 class EmptyDeckError(Exception):

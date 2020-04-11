@@ -1,5 +1,5 @@
 
-from helpers import sanitize 
+from pkg.helpers import sanitize 
 
 class DeckImportError(Exception):
   pass
@@ -52,7 +52,7 @@ class Deck(object):
         if len(l) != 52:
           print("Error: deck has %i cards" % len(l))
           raise DeckImportError
-        from helpers import count_occurrences
+        from pkg.helpers import count_occurrences
         occurrences = count_occurrences(l)
         dupes = False
         for n in occurrences.values():

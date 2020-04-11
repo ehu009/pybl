@@ -31,17 +31,17 @@ if __name__ == '__main__':
   q = sys.argv[1:]
   if len(q) > 0:
     if '-test' in q:
-      from tests import run_tests
+      from pkg.tests import run_tests
       run_tests()
       exit()      
     elif '-generate' in q:
       p = find_arg('-generate', q)
       if p is None:
         p = 'deck.csv'
-      from helpers import generate_deck
+      from pkg.helpers import generate_deck
       generate_deck(p)
       exit()
-  from blackjack import Game
+  from pkg.blackjack import Game
   names, deck = arg_parse(q)
   g = Game(names, deck)
   g.play()

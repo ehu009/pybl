@@ -1,5 +1,5 @@
 
-from helpers import map_to_list
+from pkg.helpers import map_to_list
 
 class Participant(object):
   def __init__(self, name):

@@ -11,7 +11,7 @@ def generate_deck(export_path):
   """
   generates a shuffled deck, saves the file at 'export_path'
   """
-  from cards import Deck
+  from pkg.cards import Deck
   d = Deck()
   d.export(export_path)
 
