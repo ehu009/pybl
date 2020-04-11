@@ -95,7 +95,7 @@ class Game(object):
         print()
     
     scores = sorted(self.users, key=lambda x: int(x.score),reverse=True)
-    shared = None
+    
     win = []
     for u in scores:
       n = int(u)
