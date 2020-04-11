@@ -10,7 +10,7 @@ class EmptyDeckError(Exception):
 
 class Game(object):
   def __init__(self, player_list, deck_path=None):
-    self.users = map_to_list(lambda x: Player(x), player_list)
+    self.users = map_to_list(lambda x: Player(x.capitalize()), player_list)
     try:
       self.deck = Deck(deck_path)
     except DeckImportError:
