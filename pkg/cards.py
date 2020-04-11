@@ -37,7 +37,7 @@ class Card(object):
 
 class Deck(object):
   
-  def __init__(self, deck_path=None):
+  def __init__(self, deck_path=None, test=False):
     if deck_path is None:
       self.cards = []
       for suite in Card.suites:
@@ -50,7 +50,8 @@ class Deck(object):
         self.cards = []
         l = sanitize(f.readline()).split(',')
         if len(l) != 52:
-          print("Error: deck has %i cards" % len(l))
+          if not test:
+            print("Error: deck has %i cards" % len(l))
           raise DeckImportError
         from pkg.helpers import count_occurrences
         occurrences = count_occurrences(l)
@@ -59,14 +60,16 @@ class Deck(object):
           if n != 1:
             dupes = True
         if dupes:
-          print("Error: deck has duplicate cards")
+          if not test:
+            print("Error: deck has duplicate cards")
           raise DeckImportError
         
         for c in l:
           try:
             self.cards.append(Card(c.upper()))
           except CardValueError:
-            print("Error: deck contains illegal cards")
+            if not test:
+              print("Error: deck contains illegal cards")
             raise DeckImportError
   
   def __len__(self):

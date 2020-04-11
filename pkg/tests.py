@@ -59,7 +59,7 @@ def test_decks(deck_path, bogus_path):
   print("Testing implementation of decks...")
   from pkg.cards import Deck, Card, DeckImportError
   
-  d1 = Deck()
+  d1 = Deck(test=True)
   if len(d1) != 52:
     print("Error: new deck has wrong amount of cards")
     return True
@@ -76,7 +76,7 @@ def test_decks(deck_path, bogus_path):
     return True
   
   
-  d2 = Deck(deck_path)
+  d2 = Deck(deck_path, test=True)
   test_cards = d2.pick(52)
   if d2.pick() != None:
     print("Error: trying to take a card from an empty deck does not return None")
@@ -103,7 +103,7 @@ def test_decks(deck_path, bogus_path):
     
   q = True
   try:
-    Deck(bogus_path)
+    Deck(bogus_path, test=True)
   except DeckImportError:
     q = False
   if q:
@@ -117,7 +117,7 @@ def test_decks(deck_path, bogus_path):
     
   q = True
   try:
-    Deck(bogus_path)
+    Deck(bogus_path, test=True)
   except DeckImportError:
     q = False
   if q:
@@ -131,7 +131,7 @@ def test_decks(deck_path, bogus_path):
     
   q = True
   try:
-    Deck(bogus_path)
+    Deck(bogus_path, test=True)
   except DeckImportError:
     q = False
   if q:
