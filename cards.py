@@ -17,7 +17,7 @@ class Card(object):
     height= value[1:len(value)]
     if suite not in Card.suites or height not in Card.heights:
       raise CardValueError
-      return None
+    
     self.value = value
   
   def __repr__(self):
@@ -50,17 +50,23 @@ class Deck(object):
         self.cards = []
         l = sanitize(f.readline()).split(',')
         if len(l) != 52:
+          print("Error: deck has %i cards" % len(l))
           raise DeckImportError
         from helpers import count_occurrences
         occurrences = count_occurrences(l)
+        dupes = False
         for n in occurrences.values():
           if n != 1:
-            raise DeckImportError
+            dupes = True
+        if dupes:
+          print("Error: deck has duplicate cards")
+          raise DeckImportError
         
         for c in l:
           try:
             self.cards.append(Card(c.upper()))
           except CardValueError:
+            print("Error: deck contains illegal cards")
             raise DeckImportError
   
   def __len__(self):
