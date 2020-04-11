@@ -346,14 +346,16 @@ def test_game_init():
   
   print("OK")
 
-
+"""
 def test_game_over(path):
-  """
+"""
+"""
   verifies the following:
   -raises exception when deck becomes empty
-  -
-  """
-  #-when the game is over, info about dealer and players is printed to screen
+  -when the game is over, info about dealer and players is printed to screen  
+"""
+"""
+  #
   #-when the game is over, there could be a draw
   #-when the game is over, the winners' names are printed
   print("Testing game over turnouts...")
@@ -405,9 +407,8 @@ def test_game_over(path):
   
   # implement me, stupid
   
-  
   print("OK")
-
+"""
 
 def run_tests():
   """
@@ -447,12 +448,12 @@ def run_tests():
   if test_game_init():
     print("Error testing game initialization")
     return
-  
+  """
   if test_game_over(path):
     print("Error testing game turnouts")
     remove(path)
     return
   remove(path)
-  
+  """
   print("ALL OK")
   
