@@ -24,18 +24,6 @@ class Game(object):
   def participants(self):
     return self.users
   
-  def new_card(self, participant):
-    card = self.deck.pick()
-    if card is None:
-      raise EmptyDeckError
-    if type(participant) is Player:
-      return participant.take(card)
-    return participant.take(card, self.participants.remove(participant))
-  
-  
-  def conclude(self):
-    return map_to_list(lambda x: str(x)+" <- "+str(int(x)), self.users)
-  
   def results(self):
     for u in self.users:
       if not bool(u):
