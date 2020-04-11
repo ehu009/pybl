@@ -50,7 +50,24 @@ class Game(object):
           return True
     
     return False
-    
+  
+  def winners(self, dealer):
+    scores = sorted(self.users, key=lambda x: int(x.score),reverse=True)
+    win = []
+    for u in scores:
+      n = int(u)
+      if n > 21:
+        continue
+      if bool(dealer):
+        if n == 21:
+          win.append(u)
+          continue
+        if len(win) > 0:
+          if int(win[0]) != n:
+            break
+      win.append(u)
+    return win
+  
   def play(self):
     players = self.users.copy()
     dealer = players.pop()
@@ -94,21 +111,7 @@ class Game(object):
           print("Dealer picked %i cards" % (len(dealer)-2))
         print()
     
-    scores = sorted(self.users, key=lambda x: int(x.score),reverse=True)
-    
-    win = []
-    for u in scores:
-      n = int(u)
-      if n > 21:
-        continue
-      if bool(dealer):
-        if n == 21:
-          win.append(u)
-          continue
-        if len(win) > 0:
-          if int(win[0]) != n:
-            break
-      win.append(u)
+    win = self.winners(dealer)
     
     if len(win) == 0:
       print("All have busted - house wins")
