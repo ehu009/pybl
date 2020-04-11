@@ -25,7 +25,7 @@ class Participant(object):
     self.score += int(card)
     if self.score > 21:
       self.playing = False
-    return True
+    return self.playing
     
   def take(self, card):
     return self.give(card)
@@ -41,12 +41,14 @@ class Dealer(Participant):
     super().__init__("Dealer")
   
   def take(self, card, players):
-    if self.score >= 17:
+    if int(self) >= 17:
       return False
     if True in map_to_list(lambda x: bool(x), players):
       for q, n in map_to_list(lambda x: (bool(x), int(x)), players):
         if q and n >= int(self):
-          return super().take(card)
+          if card is not None:
+            return super().take(card)
+          return True
     return False
 
 
