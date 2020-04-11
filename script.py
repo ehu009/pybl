@@ -8,7 +8,10 @@ def find_arg(needle, haystack):
   """
   for i in range(0, len(haystack)):
     if haystack[i] == needle:
-      return haystack[i+1]
+      try:
+        return haystack[i+1]
+      except IndexError:
+        pass
   return None
 
 def arg_parse(args):
