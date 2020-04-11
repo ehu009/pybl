@@ -41,8 +41,9 @@ if __name__ == '__main__':
       from helpers import generate_deck
       generate_deck(p)
       exit()
-  from blackjack import new_game
+  from blackjack import Game
   names, deck = arg_parse(q)
-  new_game(names, deck)
+  g = Game(names, deck)
+  g.play()
   print("Exiting")
   
